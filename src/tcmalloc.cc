@@ -138,7 +138,9 @@
 // Some windows file somewhere (at least on cygwin) #define's small (!)
 #undef small
 
+#ifndef TCMALLOC_NO_REPLACE_SYSTEM_MALLOC
 #include "libc_override.h"
+#endif
 
 using tcmalloc::kLog;
 using tcmalloc::kCrash;
@@ -1137,7 +1139,9 @@ TCMallocGuard::TCMallocGuard() {
   }
 
 #ifndef WIN32_OVERRIDE_ALLOCATORS
+#ifndef TCMALLOC_NO_REPLACE_SYSTEM_MALLOC
   ReplaceSystemAlloc();    // defined in libc_override_*.h
+#endif  
   (void)MallocExtension::instance(); // make sure malloc extension is constructed
   tc_free(tc_malloc(1));
 #endif  // !WIN32_OVERRIDE_ALLOCATORS
