@@ -147,7 +147,9 @@ using std::min;
 using std::numeric_limits;
 using std::vector;
 
+#ifndef TCMALLOC_NO_REPLACE_SYSTEM_MALLOC
 #include "libc_override.h"
+#endif
 
 using tcmalloc::AlignmentForSize;
 using tcmalloc::kLog;
@@ -1131,7 +1133,9 @@ size_t TCMallocImplementation::GetEstimatedAllocatedSize(size_t size) {
 static int tcmallocguard_refcount = 0;  // no lock needed: runs before main()
 TCMallocGuard::TCMallocGuard() {
   if (tcmallocguard_refcount++ == 0) {
+#ifndef TCMALLOC_NO_REPLACE_SYSTEM_MALLOC
     ReplaceSystemAlloc();    // defined in libc_override_*.h
+#endif
     tc_free(tc_malloc(1));
     ThreadCache::InitTSD();
     tc_free(tc_malloc(1));
