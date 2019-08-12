@@ -55,10 +55,12 @@
 // unsigned.  Google code therefore doesn't need a "uchar" type.
 // TODO(csilvers): how do we make sure unsigned-char works on non-gcc systems?
 typedef signed char         schar;
+#ifndef DMalterlib
 typedef int8_t              int8;
 typedef int16_t             int16;
 typedef int32_t             int32;
 typedef int64_t             int64;
+#endif
 
 // NOTE: unsigned types are DANGEROUS in loops and other arithmetical
 // places.  Use the signed types unless your variable represents a bit
@@ -66,10 +68,12 @@ typedef int64_t             int64;
 // use 'unsigned' to express "this value should always be positive";
 // use assertions for this.
 
+#ifndef DMalterlib
 typedef uint8_t            uint8;
 typedef uint16_t           uint16;
 typedef uint32_t           uint32;
 typedef uint64_t           uint64;
+#endif
 
 const uint16 kuint16max = (   (uint16) 0xFFFF);
 const uint32 kuint32max = (   (uint32) 0xFFFFFFFF);

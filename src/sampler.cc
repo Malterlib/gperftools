@@ -39,6 +39,10 @@
 #include <math.h>
 #include "base/commandlineflags.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable:4305)
+#endif
+
 using std::min;
 
 // The approximate gap in bytes between sampling actions.
