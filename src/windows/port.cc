@@ -36,7 +36,9 @@
 # error You should only be including windows/port.cc in a windows environment!
 #endif
 
+#ifndef NOMINMAX
 #define NOMINMAX       // so std::max, below, compiles correctly
+#endif
 #include <config.h>
 #include <string.h>    // for strlen(), memset(), memcmp()
 #include <assert.h>
