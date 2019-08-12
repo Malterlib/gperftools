@@ -228,6 +228,7 @@ static int ptrace_detach(pid_t pid) {
  */
 static volatile int *sig_pids, sig_num_threads;
 
+#pragma clang diagnostic ignored "-Wdeprecated-volatile"
 
 /* Signal handler to help us recover from dying while we are attached to
  * other threads.
