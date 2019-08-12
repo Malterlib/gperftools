@@ -693,10 +693,10 @@ bool ProcMapsIterator::NextExt(uint64 *start, uint64 *end, char **flags,
             uint64 tmp_anon_pages;
 
             sscanf(backing_ptr+1, "F %" SCNx64 " %" SCNd64 ") (A %" SCNx64 " %" SCNd64 ")",
-                   file_mapping ? file_mapping : &tmp_file_mapping,
-                   file_pages ? file_pages : &tmp_file_pages,
-                   anon_mapping ? anon_mapping : &tmp_anon_mapping,
-                   anon_pages ? anon_pages : &tmp_anon_pages);
+                   (uint64_t *)(file_mapping ? file_mapping : &tmp_file_mapping),
+                   (uint64_t *)(file_pages ? file_pages : &tmp_file_pages),
+                   (uint64_t *)(anon_mapping ? anon_mapping : &tmp_anon_mapping),
+                   (uint64_t *)(anon_pages ? anon_pages : &tmp_anon_pages));
             // null terminate the file name (there is a space
             // before the first (.
             backing_ptr[-1] = 0;
@@ -833,9 +833,9 @@ int ProcMapsIterator::FormatLine(char* buffer, int bufsize,
 
   const int rc = snprintf(buffer, bufsize,
                           "%08" PRIx64 "-%08" PRIx64 " %c%c%c%c %08" PRIx64 " %02x:%02x %-11" PRId64 " %s\n",
-                          start, end, r,w,x,p, offset,
+                          (uint64_t)start, (uint64_t)end, r,w,x,p, (uint64_t)offset,
                           static_cast<int>(dev/256), static_cast<int>(dev%256),
-                          inode, filename);
+                          (int64_t)inode, filename);
   return (rc < 0 || rc >= bufsize) ? 0 : rc;
 }
 
