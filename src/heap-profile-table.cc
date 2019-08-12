@@ -290,9 +290,9 @@ int HeapProfileTable::UnparseBucket(const Bucket& b,
   int printed =
     snprintf(buf + buflen, bufsize - buflen, "%6d: %8" PRId64 " [%6d: %8" PRId64 "] @%s",
              b.allocs - b.frees,
-             b.alloc_size - b.free_size,
+             (uint64_t)(b.alloc_size - b.free_size),
              b.allocs,
-             b.alloc_size,
+             (uint64_t)(b.alloc_size),
              extra);
   // If it looks like the snprintf failed, ignore the fact we printed anything
   if (printed < 0 || printed >= bufsize - buflen) return buflen;

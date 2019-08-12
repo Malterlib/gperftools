@@ -39,6 +39,8 @@
 
 #include "mini_disassembler.h"
 
+#pragma warning(disable:4838)
+
 namespace sidestep {
 
 /*
