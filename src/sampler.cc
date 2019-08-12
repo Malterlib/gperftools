@@ -40,6 +40,11 @@
 
 #include "base/commandlineflags.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable:4305)
+#endif
+
+
 // The approximate gap in bytes between sampling actions.
 // I.e., we take one sample approximately once every
 // tcmalloc_sample_parameter bytes of allocation
