@@ -42,6 +42,10 @@
 #include "base/spinlock.h"
 #include "base/sysinfo.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable:4305)
+#endif
+
 // The approximate gap in bytes between sampling actions.  See Init
 // below for how it is initialized from TCMALLOC_SAMPLE_PARAMETER
 // environment variable.
