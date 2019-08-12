@@ -135,6 +135,10 @@
 
 #include "maybe_emergency_malloc.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable:4141)
+#endif
+
 #if (defined(_WIN32) && !defined(__CYGWIN__) && !defined(__CYGWIN32__)) && !defined(WIN32_OVERRIDE_ALLOCATORS)
 # define WIN32_DO_PATCHING 1
 #endif
@@ -1043,7 +1047,7 @@ size_t align_size_up(size_t size, size_t align) {
 
 // Puts in *cl size class that is suitable for allocation of size bytes with
 // align alignment. Returns true if such size class exists and false otherwise.
-static bool size_class_with_alignment(size_t size, size_t align, uint32_t* cl) {
+static bool size_class_with_alignment(size_t size, size_t align, uint32* cl) {
   if (PREDICT_FALSE(align > kPageSize)) {
     return false;
   }
@@ -1305,7 +1309,7 @@ static void ReportLargeAlloc(Length num_pages, void* result) {
   char buffer[N];
   TCMalloc_Printer printer(buffer, N);
   printer.printf("tcmalloc: large alloc %" PRIu64 " bytes == %p @ ",
-                 static_cast<uint64>(num_pages) << kPageShift,
+                 static_cast<uint64_t>(num_pages) << kPageShift,
                  result);
   for (int i = 0; i < stack.depth; i++) {
     printer.printf(" %p", stack.stack[i]);

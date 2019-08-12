@@ -200,6 +200,7 @@ static int c_open(const char *fname, int flags, int mode) {
  */
 static volatile int *sig_pids, sig_num_threads, sig_proc, sig_marker;
 
+#pragma clang diagnostic ignored "-Wdeprecated-volatile"
 
 /* Signal handler to help us recover from dying while we are attached to
  * other threads.

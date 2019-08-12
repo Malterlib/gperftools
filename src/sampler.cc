@@ -39,6 +39,10 @@
 #include <math.h>
 #include "base/commandlineflags.h"
 
+#ifdef _MSC_VER
+#pragma warning(disable:4305)
+#endif
+
 using std::min;
 
 // The approximate gap in bytes between sampling actions.
@@ -114,7 +118,7 @@ ssize_t Sampler::PickNextSamplingPoint() {
   // Very large values of interval overflow ssize_t. If we happen to
   // hit such improbable condition, we simply cheat and clamp interval
   // to largest supported value.
-  return static_cast<ssize_t>(std::min<double>(interval, MAX_SSIZE));
+  return static_cast<ssize_t>(std::min<double>(double(interval), double(MAX_SSIZE)));
 }
 
 bool Sampler::RecordAllocationSlow(size_t k) {
