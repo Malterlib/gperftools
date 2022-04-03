@@ -90,7 +90,7 @@ static void AtomicOps_Internalx86CPUFeaturesInit() {
   cpuid(eax, ebx, ecx, edx, 1);
 
   int family = (eax >> 8) & 0xf;        // family and model fields
-  int model = (eax >> 4) & 0xf;
+  [[maybe_unused]] int model = (eax >> 4) & 0xf;
   if (family == 0xf) {                  // use extended family and model fields
     family += (eax >> 20) & 0xff;
     model += ((eax >> 16) & 0xf) << 4;
