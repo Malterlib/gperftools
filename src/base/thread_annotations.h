@@ -48,9 +48,9 @@
 
 
 #if defined(__clang__)
-#define THREAD_ANNOTATION_ATTRIBUTE__(x)   __attribute__((x))
+#define THREAD_ANNOTATION_ATTRIBUTE__(...)   __attribute__((__VA_ARGS__))
 #else
-#define THREAD_ANNOTATION_ATTRIBUTE__(x)   // no-op
+#define THREAD_ANNOTATION_ATTRIBUTE__(...)   // no-op
 #endif
 
 
@@ -59,7 +59,7 @@
 // held when accessing the annotated variable, while GUARDED_VAR only
 // indicates a shared variable should be guarded (by any lock). GUARDED_VAR
 // is primarily used when the client cannot express the name of the lock.
-#define GUARDED_BY(x)          THREAD_ANNOTATION_ATTRIBUTE__(guarded_by(x))
+#define GUARDED_BY(...)          THREAD_ANNOTATION_ATTRIBUTE__(guarded_by(__VA_ARGS__))
 #define GUARDED_VAR            THREAD_ANNOTATION_ATTRIBUTE__(guarded)
 
 // Document if the memory location pointed to by a pointer should be guarded
@@ -70,8 +70,8 @@
 // q, which is guarded by mu1, points to a shared memory location that is
 // guarded by mu2, q should be annotated as follows:
 //     int *q GUARDED_BY(mu1) PT_GUARDED_BY(mu2);
-#define PT_GUARDED_BY(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(point_to_guarded_by(x))
+#define PT_GUARDED_BY(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(point_to_guarded_by(__VA_ARGS__))
 #define PT_GUARDED_VAR \
   THREAD_ANNOTATION_ATTRIBUTE__(point_to_guarded)
 
@@ -80,29 +80,29 @@
 // to establish an acquisition order, only one of them needs the annotation.
 // (i.e. You don't have to annotate both locks with both ACQUIRED_AFTER
 // and ACQUIRED_BEFORE.)
-#define ACQUIRED_AFTER(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(acquired_after(x))
-#define ACQUIRED_BEFORE(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(acquired_before(x))
+#define ACQUIRED_AFTER(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(acquired_after(__VA_ARGS__))
+#define ACQUIRED_BEFORE(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(acquired_before(__VA_ARGS__))
 
 // The following three annotations document the lock requirements for
 // functions/methods.
 
 // Document if a function expects certain locks to be held before it is called
-#define EXCLUSIVE_LOCKS_REQUIRED(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(x))
+#define EXCLUSIVE_LOCKS_REQUIRED(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(exclusive_locks_required(__VA_ARGS__))
 
-#define SHARED_LOCKS_REQUIRED(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(shared_locks_required(x))
+#define SHARED_LOCKS_REQUIRED(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(shared_locks_required(__VA_ARGS__))
 
 // Document the locks acquired in the body of the function. These locks
 // cannot be held when calling this function (as google3's Mutex locks are
 // non-reentrant).
-#define LOCKS_EXCLUDED(x) \
-  THREAD_ANNOTATION_ATTRIBUTE__(locks_excluded(x))
+#define LOCKS_EXCLUDED(...) \
+  THREAD_ANNOTATION_ATTRIBUTE__(locks_excluded(__VA_ARGS__))
 
 // Document the lock the annotated function returns without acquiring it.
-#define LOCK_RETURNED(x)       THREAD_ANNOTATION_ATTRIBUTE__(lock_returned(x))
+#define LOCK_RETURNED(...)       THREAD_ANNOTATION_ATTRIBUTE__(lock_returned(__VA_ARGS__))
 
 // Document if a class/type is a lockable type (such as the Mutex class).
 #define LOCKABLE               THREAD_ANNOTATION_ATTRIBUTE__(lockable)
