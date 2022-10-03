@@ -435,17 +435,17 @@ static T StringToInteger(char *text, char **endptr, int base) {
 }
 
 template<>
-int StringToInteger<int>(char *text, char **endptr, int base) {
+[[maybe_unused]] int StringToInteger<int>(char *text, char **endptr, int base) {
   return strtol(text, endptr, base);
 }
 
 template<>
-int64 StringToInteger<int64>(char *text, char **endptr, int base) {
+[[maybe_unused]] int64 StringToInteger<int64>(char *text, char **endptr, int base) {
   return strtoll(text, endptr, base);
 }
 
 template<>
-uint64 StringToInteger<uint64>(char *text, char **endptr, int base) {
+[[maybe_unused]] uint64 StringToInteger<uint64>(char *text, char **endptr, int base) {
   return strtoull(text, endptr, base);
 }
 
@@ -473,7 +473,7 @@ static T StringToIntegerUntilChar(
   return result;
 }
 
-static char *CopyStringUntilChar(
+[[maybe_unused]] static char *CopyStringUntilChar(
     char *text, unsigned out_len, int c, char *out) {
   char *endptr;
   if (!ExtractUntilChar(text, c, &endptr))
@@ -496,7 +496,7 @@ static bool StringToIntegerUntilCharWithCheck(
   return true;
 }
 
-static bool ParseProcMapsLine(char *text, uint64 *start, uint64 *end,
+[[maybe_unused]] static bool ParseProcMapsLine(char *text, uint64 *start, uint64 *end,
                               char *flags, uint64 *offset,
                               int *major, int *minor, int64 *inode,
                               unsigned *filename_offset) {
