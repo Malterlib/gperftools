@@ -42,6 +42,8 @@
 #ifndef BASE_MALLOC_EXTENSION_H_
 #define BASE_MALLOC_EXTENSION_H_
 
+#include <Mib/Core/Core>
+
 #include <stddef.h>
 // I can't #include config.h in this public API file, but I should
 // really use configure (and make malloc_extension.h a .in file) to
