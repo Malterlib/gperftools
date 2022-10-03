@@ -1179,7 +1179,7 @@ static TCMallocGuard module_enter_exit_hook;
 // Helpers for the exported routines below
 //-------------------------------------------------------------------
 
-static inline bool CheckCachedSizeClass(void *ptr) {
+[[maybe_unused]] static inline bool CheckCachedSizeClass(void *ptr) {
   PageID p = reinterpret_cast<uintptr_t>(ptr) >> kPageShift;
   uint32 cached_value;
   if (!Static::pageheap()->TryGetSizeClass(p, &cached_value)) {
