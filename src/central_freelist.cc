@@ -104,10 +104,14 @@ void CentralFreeList::ReleaseToSpans(void* object) {
   // The following check is expensive, so it is disabled by default
   if (false) {
     // Check that object does not occur in list
+#ifndef NDEBUG
     int got = 0;
+#endif
     for (void* p = span->objects; p != nullptr; p = *((void**) p)) {
       ASSERT(p != object);
+#ifndef NDEBUG
       got++;
+#endif
     }
     (void)got;
     ASSERT(got + span->refcount ==
