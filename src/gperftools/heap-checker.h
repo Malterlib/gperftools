@@ -195,7 +195,7 @@ class PERFTOOLS_DLL_DECL HeapLeakChecker {
   // whitelist objects referenced through it.
   template <typename T>
   static T* IgnoreObject(T* ptr) {
-    DoIgnoreObject(static_cast<const void*>(const_cast<const T*>(ptr)));
+    //DoIgnoreObject(static_cast<const void*>(const_cast<const T*>(ptr)));
     return ptr;
   }
 
